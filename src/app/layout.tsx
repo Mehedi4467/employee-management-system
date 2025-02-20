@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import ThemeToggle from "@/components/ThemeToggle";
+import Header from "@/components/Common/Header";
 
 export const metadata: Metadata = {
   title: "Employee Management System",
@@ -15,7 +15,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-gray-200 dark:bg-gray-800 dark:text-white">
-        <ThemeToggle />
+        <Header />
+
         {children}
       </body>
     </html>
