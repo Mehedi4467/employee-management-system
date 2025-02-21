@@ -10,7 +10,7 @@ const Header = () => {
     const updateTime = () =>
       setTime(new Date().toLocaleTimeString("en-GB", { hour12: true }));
 
-    updateTime(); // Set initial time after mount
+    updateTime();
     const interval = setInterval(updateTime, 1000);
 
     return () => clearInterval(interval);
