@@ -35,7 +35,7 @@ export default function RootLayout({
               </button>
             </header>
 
-            <section className="p-4 shadow rounded-lg">{children}</section>
+            <section className="p-4 shadow dark:bg-gray-900 bg-white rounded-lg">{children}</section>
           </main>
         </div>
       </body>

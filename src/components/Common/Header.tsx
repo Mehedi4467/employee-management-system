@@ -4,14 +4,18 @@ import React, { useEffect, useState } from "react";
 import ThemeToggle from "../ThemeToggle";
 
 const Header = () => {
-  const [time, setTime] = useState(new Date());
+  const [time, setTime] = useState<string | null>(null);
 
   useEffect(() => {
-    const interval = setInterval(() => setTime(new Date()), 1000);
+    const updateTime = () =>
+      setTime(new Date().toLocaleTimeString("en-GB", { hour12: true }));
+
+    updateTime(); // Set initial time after mount
+    const interval = setInterval(updateTime, 1000);
+
     return () => clearInterval(interval);
   }, []);
 
-  const formattedTime = time.toLocaleTimeString("en-GB", { hour12: false });
   return (
     <nav className="flex items-center justify-between dark:bg-[#1f2937] dark:shadow-lg bg-white px-2">
       <div className="flex items-center">
@@ -26,9 +30,15 @@ const Header = () => {
         <span className=" text-xl font-bold">EMS</span>
       </div>
       <div className="flex items-center space-x-4">
-        <span className="bg-green-500 text-white px-3 py-1 rounded-md">
-          {formattedTime}
-        </span>
+        {time ? (
+          <span className="bg-green-500 text-white px-3 py-1 rounded-md">
+            {time}
+          </span>
+        ) : (
+          <span className="bg-gray-400 text-white px-3 py-1 rounded-md">
+            Loading...
+          </span>
+        )}
         <ThemeToggle />
       </div>
     </nav>

@@ -15,46 +15,50 @@ const SideBar = () => {
         <div>
           <h2 className="text-md font-semibold">Ethan Antonio</h2>
           <p className="text-sm text-gray-500">Centrovo</p>
-        </div> 
+        </div>
       </div>
       <nav className="space-y-4">
         <div>
-          <p className="text-gray-400 text-sm">Your Apps</p>
+          <p className="text-gray-400 text-sm">My Task</p>
           <ul className="space-y-2">
             <li className="flex items-center space-x-2 p-2 rounded cursor-pointer hover:bg-gray-200 dark:hover:text-black dark:hover:bg-gray-200">
-              ⏳<span>Timer</span>
+              📜 <span>Employee List</span>
             </li>
             <li className="flex items-center space-x-2 p-2 rounded cursor-pointer hover:bg-gray-200 dark:hover:text-black dark:hover:bg-gray-200">
-              📁<span>Projects</span>
-            </li>
-            <li className="flex items-center space-x-2 p-2 rounded cursor-pointer hover:bg-gray-200 dark:hover:text-black dark:hover:bg-gray-200">
-              📄<span>Reports</span>
+              📊 <span>Employee Table</span>
             </li>
           </ul>
         </div>
         <div>
-          <p className="text-gray-400 text-sm">Your Company</p>
+          <p className="text-gray-400 text-sm">Coming Soon</p>
           <ul className="space-y-2">
             <li className="flex items-center space-x-2 p-2 rounded cursor-pointer hover:bg-gray-200 dark:hover:text-black dark:hover:bg-gray-200">
-              👥<span>Employees</span>
+              ⏳ <span>Timer</span>
             </li>
             <li className="flex items-center space-x-2 p-2 rounded cursor-pointer hover:bg-gray-200 dark:hover:text-black dark:hover:bg-gray-200">
-              💰<span>Payroll</span>
+              📁 <span>Projects</span>
             </li>
             <li className="flex items-center space-x-2 p-2 rounded cursor-pointer hover:bg-gray-200 dark:hover:text-black dark:hover:bg-gray-200">
-              🧑‍💼<span>Applicant Tracking</span>
+              📄 <span>Reports</span>
+            </li>
+           
+            <li className="flex items-center space-x-2 p-2 rounded cursor-pointer hover:bg-gray-200 dark:hover:text-black dark:hover:bg-gray-200">
+              💰 <span>Payroll</span>
             </li>
             <li className="flex items-center space-x-2 p-2 rounded cursor-pointer hover:bg-gray-200 dark:hover:text-black dark:hover:bg-gray-200">
-              🤝<span>Clients</span>
+              🧑‍💼 <span>Applicant Tracking</span>
             </li>
             <li className="flex items-center space-x-2 p-2 rounded cursor-pointer hover:bg-gray-200 dark:hover:text-black dark:hover:bg-gray-200">
-              🧾<span>Invoice</span>
+              🤝 <span>Clients</span>
             </li>
             <li className="flex items-center space-x-2 p-2 rounded cursor-pointer hover:bg-gray-200 dark:hover:text-black dark:hover:bg-gray-200">
-              📅<span>Events</span>
+              🧾 <span>Invoice</span>
             </li>
             <li className="flex items-center space-x-2 p-2 rounded cursor-pointer hover:bg-gray-200 dark:hover:text-black dark:hover:bg-gray-200">
-              ⚙️<span>Settings</span>
+              📅 <span>Events</span>
+            </li>
+            <li className="flex items-center space-x-2 p-2 rounded cursor-pointer hover:bg-gray-200 dark:hover:text-black dark:hover:bg-gray-200">
+              ⚙️ <span>Settings</span>
             </li>
           </ul>
         </div>
