@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/Common/Header";
 import SideBar from "@/components/Common/SideBar";
+import BodyHeader from "@/components/Home/BodyHeader";
 
 export const metadata: Metadata = {
   title: "Employee Management System",
@@ -19,23 +20,15 @@ export default function RootLayout({
         <div className=" sticky top-0">
           <Header />
         </div>
-
         <div className="flex h-screen overflow-hidden">
-          {/* Sidebar */}
           <aside className="w-64 bg-white dark:bg-gray-800 p-4 border-r h-screen fixed shadow-md">
             <SideBar />
           </aside>
-
-          {/* Main Content */}
-          <main className="flex-1 p-6 overflow-auto ml-64">
-            <header className="flex justify-between items-center mb-4">
-              <h1 className="text-2xl font-semibold">Employees</h1>
-              <button className="bg-blue-500 text-white px-4 py-2 rounded">
-                Add Employee
-              </button>
-            </header>
-
-            <section className="p-4 shadow dark:bg-gray-900 bg-white rounded-lg">{children}</section>
+          <main className="flex-1 p-6 dark:bg-[#111827] overflow-auto ml-64">
+            <BodyHeader />
+            <section className="p-4 shadow dark:bg-gray-800 bg-white rounded-lg">
+              {children}
+            </section>
           </main>
         </div>
       </body>

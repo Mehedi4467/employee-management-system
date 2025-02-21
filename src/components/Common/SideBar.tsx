@@ -1,8 +1,25 @@
+"use client";
 import Image from "next/image";
+import { usePathname, useRouter } from "next/navigation";
 import React from "react";
-import { FaTasks, FaTable, FaClock, FaFolder, FaFileAlt, FaMoneyBillWave, FaUserTie, FaHandshake, FaFileInvoice, FaCalendarAlt, FaCog, FaBook } from "react-icons/fa";
+import {
+  FaTasks,
+  FaTable,
+  FaClock,
+  FaFolder,
+  FaFileAlt,
+  FaMoneyBillWave,
+  FaUserTie,
+  FaHandshake,
+  FaFileInvoice,
+  FaCalendarAlt,
+  FaCog,
+  FaBook,
+} from "react-icons/fa";
 
 const SideBar = () => {
+  const router = useRouter();
+  const pathname = usePathname();
   return (
     <>
       <div className="flex items-center space-x-2 mb-6">
@@ -22,11 +39,29 @@ const SideBar = () => {
         <div>
           <p className="text-gray-400 text-sm">My Task</p>
           <ul className="space-y-2">
-            <li className="flex items-center space-x-2 p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
-              <FaTasks className="text-[#3899db] text-lg" /> <span>Employee List</span>
+            <li
+              onClick={() => router.push(`/employee-list-card-view`)}
+              className={`flex items-center space-x-2 p-2 rounded cursor-pointer 
+                ${
+                  pathname === "/employee-list-card-view"
+                    ? "bg-gray-200 dark:bg-gray-600 font-semibold"
+                    : "hover:bg-gray-100 dark:hover:bg-gray-700"
+                }`}
+            >
+              <FaTasks className="text-[#3899db] text-lg" />
+              <span>Employee List</span>
             </li>
-            <li className="flex items-center space-x-2 p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
-              <FaTable className="text-[#3899db] text-lg" /> <span>Employee Table</span>
+            <li
+              onClick={() => router.push(`/employee-list-table-view`)}
+              className={`flex items-center space-x-2 p-2 rounded cursor-pointer 
+                ${
+                  pathname === "/employee-list-table-view"
+                    ? "bg-gray-200 dark:bg-gray-600 font-semibold"
+                    : "hover:bg-gray-100 dark:hover:bg-gray-700"
+                }`}
+            >
+              <FaTable className="text-[#3899db] text-lg" />
+              <span>Employee Table</span>
             </li>
           </ul>
         </div>
@@ -36,28 +71,35 @@ const SideBar = () => {
             <li className="flex items-center space-x-2 p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 cursor-not-allowed">
               <FaClock className="text-[#3899db] text-lg" /> <span>Timer</span>
             </li>
-            <li className="flex items-center space-x-2 p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
-              <FaFolder className="text-[#3899db] text-lg" /> <span>Projects</span>
+            <li className="flex items-center space-x-2 p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 cursor-not-allowed">
+              <FaFolder className="text-[#3899db] text-lg" />{" "}
+              <span>Projects</span>
             </li>
-            <li className="flex items-center space-x-2 p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
-              <FaFileAlt className="text-[#3899db] text-lg" /> <span>Reports</span>
+            <li className="flex items-center space-x-2 p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 cursor-not-allowed">
+              <FaFileAlt className="text-[#3899db] text-lg" />{" "}
+              <span>Reports</span>
             </li>
-            <li className="flex items-center space-x-2 p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
-              <FaMoneyBillWave className="text-[#3899db] text-lg" /> <span>Payroll</span>
+            <li className="flex items-center space-x-2 p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 cursor-not-allowed">
+              <FaMoneyBillWave className="text-[#3899db] text-lg" />{" "}
+              <span>Payroll</span>
             </li>
-            <li className="flex items-center space-x-2 p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
-              <FaUserTie className="text-[#3899db] text-lg" /> <span>Applicant Tracking</span>
+            <li className="flex items-center space-x-2 p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 cursor-not-allowed">
+              <FaUserTie className="text-[#3899db] text-lg" />{" "}
+              <span>Applicant Tracking</span>
             </li>
-            <li className="flex items-center space-x-2 p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
-              <FaHandshake className="text-[#3899db] text-lg" /> <span>Clients</span>
+            <li className="flex items-center space-x-2 p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 cursor-not-allowed">
+              <FaHandshake className="text-[#3899db] text-lg" />{" "}
+              <span>Clients</span>
             </li>
-            <li className="flex items-center space-x-2 p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
-              <FaFileInvoice className="text-[#3899db] text-lg" /> <span>Invoice</span>
+            <li className="flex items-center space-x-2 p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 cursor-not-allowed">
+              <FaFileInvoice className="text-[#3899db] text-lg" />{" "}
+              <span>Invoice</span>
             </li>
-            <li className="flex items-center space-x-2 p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
-              <FaCalendarAlt className="text-[#3899db] text-lg" /> <span>Events</span>
+            <li className="flex items-center space-x-2 p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 cursor-not-allowed">
+              <FaCalendarAlt className="text-[#3899db] text-lg" />{" "}
+              <span>Events</span>
             </li>
-            <li className="flex items-center space-x-2 p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
+            <li className="flex items-center space-x-2 p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 cursor-not-allowed">
               <FaCog className="text-[#3899db] text-lg" /> <span>Settings</span>
             </li>
           </ul>
@@ -65,8 +107,9 @@ const SideBar = () => {
         <div>
           <p className="text-gray-400 text-sm">Support</p>
           <ul>
-            <li className="flex items-center space-x-2 p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
-              <FaBook className="text-[#3899db] text-lg" /> <span>Knowledge Base</span>
+            <li className="flex items-center space-x-2 p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 cursor-not-allowed">
+              <FaBook className="text-[#3899db] text-lg" />{" "}
+              <span>Knowledge Base</span>
             </li>
           </ul>
         </div>
