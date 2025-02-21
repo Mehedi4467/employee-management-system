@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React from "react";
+import { FaTasks, FaTable, FaClock, FaFolder, FaFileAlt, FaMoneyBillWave, FaUserTie, FaHandshake, FaFileInvoice, FaCalendarAlt, FaCog, FaBook } from "react-icons/fa";
 
 const SideBar = () => {
   return (
@@ -21,52 +22,51 @@ const SideBar = () => {
         <div>
           <p className="text-gray-400 text-sm">My Task</p>
           <ul className="space-y-2">
-            <li className="flex items-center space-x-2 p-2 rounded cursor-pointer hover:bg-gray-200 dark:hover:text-black dark:hover:bg-gray-200">
-              📜 <span>Employee List</span>
+            <li className="flex items-center space-x-2 p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
+              <FaTasks className="text-[#3899db] text-lg" /> <span>Employee List</span>
             </li>
-            <li className="flex items-center space-x-2 p-2 rounded cursor-pointer hover:bg-gray-200 dark:hover:text-black dark:hover:bg-gray-200">
-              📊 <span>Employee Table</span>
+            <li className="flex items-center space-x-2 p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
+              <FaTable className="text-[#3899db] text-lg" /> <span>Employee Table</span>
             </li>
           </ul>
         </div>
         <div>
           <p className="text-gray-400 text-sm">Coming Soon</p>
           <ul className="space-y-2">
-            <li className="flex items-center space-x-2 p-2 rounded cursor-pointer hover:bg-gray-200 dark:hover:text-black dark:hover:bg-gray-200">
-              ⏳ <span>Timer</span>
+            <li className="flex items-center space-x-2 p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 cursor-not-allowed">
+              <FaClock className="text-[#3899db] text-lg" /> <span>Timer</span>
             </li>
-            <li className="flex items-center space-x-2 p-2 rounded cursor-pointer hover:bg-gray-200 dark:hover:text-black dark:hover:bg-gray-200">
-              📁 <span>Projects</span>
+            <li className="flex items-center space-x-2 p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
+              <FaFolder className="text-[#3899db] text-lg" /> <span>Projects</span>
             </li>
-            <li className="flex items-center space-x-2 p-2 rounded cursor-pointer hover:bg-gray-200 dark:hover:text-black dark:hover:bg-gray-200">
-              📄 <span>Reports</span>
+            <li className="flex items-center space-x-2 p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
+              <FaFileAlt className="text-[#3899db] text-lg" /> <span>Reports</span>
             </li>
-           
-            <li className="flex items-center space-x-2 p-2 rounded cursor-pointer hover:bg-gray-200 dark:hover:text-black dark:hover:bg-gray-200">
-              💰 <span>Payroll</span>
+            <li className="flex items-center space-x-2 p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
+              <FaMoneyBillWave className="text-[#3899db] text-lg" /> <span>Payroll</span>
             </li>
-            <li className="flex items-center space-x-2 p-2 rounded cursor-pointer hover:bg-gray-200 dark:hover:text-black dark:hover:bg-gray-200">
-              🧑‍💼 <span>Applicant Tracking</span>
+            <li className="flex items-center space-x-2 p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
+              <FaUserTie className="text-[#3899db] text-lg" /> <span>Applicant Tracking</span>
             </li>
-            <li className="flex items-center space-x-2 p-2 rounded cursor-pointer hover:bg-gray-200 dark:hover:text-black dark:hover:bg-gray-200">
-              🤝 <span>Clients</span>
+            <li className="flex items-center space-x-2 p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
+              <FaHandshake className="text-[#3899db] text-lg" /> <span>Clients</span>
             </li>
-            <li className="flex items-center space-x-2 p-2 rounded cursor-pointer hover:bg-gray-200 dark:hover:text-black dark:hover:bg-gray-200">
-              🧾 <span>Invoice</span>
+            <li className="flex items-center space-x-2 p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
+              <FaFileInvoice className="text-[#3899db] text-lg" /> <span>Invoice</span>
             </li>
-            <li className="flex items-center space-x-2 p-2 rounded cursor-pointer hover:bg-gray-200 dark:hover:text-black dark:hover:bg-gray-200">
-              📅 <span>Events</span>
+            <li className="flex items-center space-x-2 p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
+              <FaCalendarAlt className="text-[#3899db] text-lg" /> <span>Events</span>
             </li>
-            <li className="flex items-center space-x-2 p-2 rounded cursor-pointer hover:bg-gray-200 dark:hover:text-black dark:hover:bg-gray-200">
-              ⚙️ <span>Settings</span>
+            <li className="flex items-center space-x-2 p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
+              <FaCog className="text-[#3899db] text-lg" /> <span>Settings</span>
             </li>
           </ul>
         </div>
         <div>
           <p className="text-gray-400 text-sm">Support</p>
           <ul>
-            <li className="flex items-center space-x-2 p-2 rounded cursor-pointer hover:bg-gray-200 dark:hover:text-black dark:hover:bg-gray-200">
-              📖<span>Knowledge Base</span>
+            <li className="flex items-center space-x-2 p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
+              <FaBook className="text-[#3899db] text-lg" /> <span>Knowledge Base</span>
             </li>
           </ul>
         </div>
