@@ -1,5 +1,54 @@
+// /* eslint-disable @next/next/no-img-element */
+// "use client";
+// import axios from "axios";
+// import { useState } from "react";
+// import { useForm } from "react-hook-form";
+
+// interface FormData {
+//   name: string;
+//   position: string;
+//   phone: string;
+//   email: string;
+//   address: string;
+//   profilePicture: FileList;
+// }
+
+// const EmployeeForm = () => {
+//   const {
+//     register,
+//     handleSubmit,
+//     formState: { errors },
+//   } = useForm<FormData>();
+//   const [loading, setLoading] = useState<boolean>(false);
+//   const [imagePreview, setImagePreview] = useState<string | null>(null);
+
+//   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+//     const file = event.target.files?.[0];
+//     if (file) {
+//       const reader = new FileReader();
+//       reader.onloadend = () => {
+//         setImagePreview(reader.result as string);
+//       };
+//       reader.readAsDataURL(file);
+//     }
+//   };
+
+//   const onSubmit = async (data: FormData) => {
+//     setLoading(true);
+//     const submitData = { ...data, joningDate: new Date() };
+//     try {
+//       const { data } = await axios.post(`/api/`, submitData);
+//       console.log(data);
+//       setLoading(false);
+//     } catch (err) {
+//       console.error("Submit data error:", (err as Error).message);
+//       setLoading(false);
+//     }
+//   };
+
 /* eslint-disable @next/next/no-img-element */
 "use client";
+import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -9,7 +58,7 @@ interface FormData {
   phone: string;
   email: string;
   address: string;
-  profilePicture: FileList;
+  profilePicture: string; // FileList থেকে String URL করা হলো
 }
 
 const EmployeeForm = () => {
@@ -18,11 +67,14 @@ const EmployeeForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>();
+  const [loading, setLoading] = useState<boolean>(false);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
+      setSelectedFile(file);
       const reader = new FileReader();
       reader.onloadend = () => {
         setImagePreview(reader.result as string);
@@ -31,9 +83,53 @@ const EmployeeForm = () => {
     }
   };
 
-  const onSubmit = (data: FormData) => {
-    console.log("Form Data:", data);
+  const uploadImageToImgBB = async (file: File): Promise<string | null> => {
+    try {
+      const formData = new FormData();
+      formData.append("image", file);
+
+      const { data } = await axios.post(
+        `https://api.imgbb.com/1/upload?key=${process.env.NEXT_PUBLIC_IMAGEBB_API_KEY}`,
+        formData
+      );
+      return data.data.url;
+    } catch (error) {
+      console.error("Image upload error:", error);
+      return null;
+    }
   };
+
+  const onSubmit = async (data: FormData) => {
+    setLoading(true);
+
+    let imageUrl: string | null = "";
+    if (selectedFile) {
+      imageUrl = await uploadImageToImgBB(selectedFile);
+      if (!imageUrl) {
+        console.error("Image upload failed");
+        setLoading(false);
+        return;
+      }
+    }
+
+    const submitData = {
+      ...data,
+      profilePicture: imageUrl,
+      joiningDate: Date.now(),
+    };
+
+    console.log(submitData);
+
+    // try {
+    //   const { data } = await axios.post(`/api/`, submitData);
+    //   console.log("Success:", data);
+    // } catch (err) {
+    //   console.error("Submit data error:", (err as Error).message);
+    // } finally {
+    //   setLoading(false);
+    // }
+  };
+
   return (
     <div className="max-w-lg mx-auto  bg-white dark:bg-gray-800 ">
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -56,19 +152,17 @@ const EmployeeForm = () => {
           </label>
           <input
             type="file"
-            {...register("profilePicture", {
-              required: "Profile picture is required",
-            })}
+            {...register("profilePicture", {})}
             accept="image/*"
             className="hidden"
             id="fileUpload"
             onChange={handleImageChange}
           />
-          {errors.profilePicture && (
+          {/* {errors.profilePicture && (
             <p className="text-red-500 text-sm">
               {errors.profilePicture.message}
             </p>
-          )}
+          )} */}
         </div>
 
         <div className="flex items-center gap-2">
@@ -171,9 +265,35 @@ const EmployeeForm = () => {
 
         <button
           type="submit"
-          className="w-full bg-[#399bce] text-white py-2 rounded-md hover:bg-blue-600"
+          className="w-full flex justify-center bg-[#399bce] text-white py-2 rounded-md hover:bg-blue-600"
         >
-          Submit
+          {loading ? (
+            <span className="flex items-center gap-2">
+              <svg
+                className="animate-spin h-5 w-5 mr-2 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-50"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                ></circle>
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8v8H4z"
+                ></path>
+              </svg>
+              <p>Please wait...</p>
+            </span>
+          ) : (
+            "Submit"
+          )}
         </button>
       </form>
     </div>
