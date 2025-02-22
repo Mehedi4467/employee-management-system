@@ -26,7 +26,7 @@ const BodyHeader: React.FC<BodyHeaderProps> = ({ setProfileInfo }) => {
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
   return (
     <>
-      <header className="flex justify-between items-center mb-4">
+      <header className="flex  p-2 md:p-6 justify-between items-center">
         <h1 className="text-2xl font-semibold">Employees</h1>
         <button
           type="submit"
