@@ -16,6 +16,7 @@ import {
   FaCog,
   FaBook,
 } from 'react-icons/fa';
+import { admin } from '../../../lib/admin';
 interface SideBarProps {
   setIsOpen?: (isOpen: boolean) => void;
 }
@@ -26,15 +27,15 @@ const SideBar: React.FC<SideBarProps> = ({ setIsOpen }) => {
     <>
       <div className="flex items-center space-x-2 mb-6">
         <Image
-          src="/image/mehedi_hassan.jpg"
-          alt="User Avatar"
+          src={admin?.image || '/icon/user.png'}
+          alt="admin image"
           width={40}
           height={40}
           className="rounded-full"
         />
         <div>
-          <h2 className="text-md font-semibold">Ethan Antonio</h2>
-          <p className="text-sm text-gray-500">Centrovo</p>
+          <h2 className="text-md font-semibold">{admin?.name}</h2>
+          <p className="text-sm text-gray-500">{admin?.position}</p>
         </div>
       </div>
       <nav className="space-y-4">
