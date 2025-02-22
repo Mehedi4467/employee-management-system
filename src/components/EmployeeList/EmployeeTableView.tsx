@@ -91,7 +91,7 @@ const EmployeeTableView = () => {
           </div>
 
           {loading ? (
-            <div className="flex justify-center items-center h-40">
+            <div className="flex justify-center items-center h-screen">
               <Spinner />
             </div>
           ) : profileInfo && profileInfo.data.length > 0 ? (

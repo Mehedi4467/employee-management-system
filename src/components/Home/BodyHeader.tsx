@@ -1,7 +1,7 @@
-'use client';
-import React, { useState } from 'react';
-import Modal from '../Common/Modal';
-import EmployeeForm from './AddEmployee/EmployeeForm';
+"use client";
+import React, { useState } from "react";
+import Modal from "../Common/Modal";
+import EmployeeForm from "./AddEmployee/EmployeeForm";
 interface Employee {
   _id: string;
   name: string;
@@ -25,6 +25,7 @@ interface BodyHeaderProps {
 
 const BodyHeader: React.FC<BodyHeaderProps> = ({ setProfileInfo }) => {
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
+
   return (
     <>
       <header className="flex  p-2 md:p-6 justify-between items-center">
