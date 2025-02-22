@@ -8,6 +8,8 @@ import axios from 'axios';
 import BodyHeader from '../Home/BodyHeader';
 import SearchBar from '../Common/SearchBar';
 import Spinner from '../Common/Spinner';
+import Modal from '../Common/Modal';
+import EmployeeDelete from './EmployeeDelete';
 
 interface Employee {
   _id: string;
@@ -35,6 +37,8 @@ const EmployeeTableView = () => {
   const page = parseInt(searchParams.get('page') || '1');
   const date = searchParams.get('date') || '';
   const router = useRouter();
+
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
 
   const getEmployeeData = async (
     page: number,
@@ -151,7 +155,10 @@ const EmployeeTableView = () => {
                               className="hidden dark:block"
                             />
                           </button>
-                          <button type="submit">
+                          <button
+                            onClick={() => setDeleteModalOpen(true)}
+                            type="submit"
+                          >
                             <img
                               src="/icon/trash-black.png"
                               width={20}
@@ -187,6 +194,17 @@ const EmployeeTableView = () => {
             />
           </div>
         </div>
+
+        <Modal
+          isOpen={deleteModalOpen}
+          onClose={() => setDeleteModalOpen(false)}
+        >
+          <EmployeeDelete
+            setProfileInfo={setProfileInfo}
+            setDeleteModalOpen={setDeleteModalOpen}
+            deleteModalOpen={deleteModalOpen}
+          />
+        </Modal>
       </section>
     </>
   );

@@ -1,7 +1,7 @@
-"use client";
-import { useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { FaTimes } from "react-icons/fa";
+'use client';
+import { useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { FaTimes } from 'react-icons/fa';
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -11,9 +11,9 @@ interface ModalProps {
 const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = "hidden"; // Scroll Disable
+      document.body.style.overflow = 'hidden';
     } else {
-      document.body.style.overflow = "auto"; // Scroll Enable
+      document.body.style.overflow = 'auto';
     }
   }, [isOpen]);
 
@@ -33,8 +33,8 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: -50, opacity: 0 }}
         >
-          {/* Close Button (Now inside the modal) */}
           <button
+            type="submit"
             onClick={onClose}
             className="absolute top-3 right-3 bg-red-500 h-8 w-8 flex items-center justify-center text-white rounded-full text-lg"
           >
