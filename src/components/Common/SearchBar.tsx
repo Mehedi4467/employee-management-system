@@ -1,21 +1,21 @@
-"use client"
-import React, { useState } from 'react';
-import { FiSearch, FiX, FiFilter } from 'react-icons/fi';
+"use client";
+import React, { useState } from "react";
+import { FiSearch, FiX, FiFilter } from "react-icons/fi";
 
 interface SearchBarProps {
   onSearch: (query: string) => void;
   onFilter: (date: string) => void;
 }
-import { FiCalendar } from 'react-icons/fi';
-import { motion } from 'framer-motion';
+import { FiCalendar } from "react-icons/fi";
+import { motion } from "framer-motion";
 
 const SearchBar: React.FC<SearchBarProps> = ({ onSearch, onFilter }) => {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedDate, setSelectedDate] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedDate, setSelectedDate] = useState("");
   const [isDateOpen, setIsDateOpen] = useState(false);
   const handleClear = () => {
-    setSearchQuery('');
-    onSearch('');
+    setSearchQuery("");
+    onSearch("");
   };
 
   return (
@@ -50,7 +50,6 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, onFilter }) => {
       </div>
 
       <div className="relative w-full flex items-center gap-2">
-        {/* Date Input Wrapper */}
         <div className="relative  w-full">
           <motion.div
             initial={{ opacity: 0, x: -10 }}
@@ -68,7 +67,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, onFilter }) => {
             onClick={() => {
               setIsDateOpen(true);
               (
-                document.getElementById('datePicker') as HTMLInputElement
+                document.getElementById("datePicker") as HTMLInputElement
               )?.showPicker();
             }}
           ></button>
