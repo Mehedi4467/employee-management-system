@@ -116,7 +116,7 @@ const EmployeeTableView = () => {
                       <td className="p-2">{index + 1}</td>
                       <td className="p-2 flex items-center space-x-2">
                         <img
-                          src={employee.profilePicture}
+                          src={employee.profilePicture || '/icon/user.png'}
                           alt={employee.name}
                           width={40}
                           height={40}

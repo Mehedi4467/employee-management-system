@@ -99,7 +99,6 @@ const EmployeeCardView = () => {
                     key={index}
                     className="rounded-lg overflow-hidden shadow-lg border bg-white dark:bg-gray-800 p-4 transition-all duration-300 hover:scale-105"
                   >
-                    {/* Profile Image */}
                     <div className="flex justify-center">
                       <img
                         src={employee.profilePicture || '/icon/user.png'}
@@ -108,7 +107,6 @@ const EmployeeCardView = () => {
                       />
                     </div>
 
-                    {/* Employee Info */}
                     <div className="text-center mt-3">
                       <h3 className="text-lg md:text-xl font-bold text-gray-900 dark:text-white">
                         {employee.name}
@@ -118,7 +116,6 @@ const EmployeeCardView = () => {
                       </p>
                     </div>
 
-                    {/* Contact Details */}
                     <div className="mt-4 text-sm text-gray-700 dark:text-gray-300 space-y-1 text-center md:text-left">
                       <p>📞 {employee.phone}</p>
                       <p>✉️ {employee.email}</p>
