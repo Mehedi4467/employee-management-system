@@ -8,9 +8,7 @@ export function middleware(request: NextRequest) {
       new URL("/employee-list-table-view", request.url)
     );
   } else {
-    return NextResponse.redirect(
-      new URL("/employee-list-table-view", request.url)
-    );
+    return NextResponse.redirect(new URL("/login", request.url));
   }
 }
 
