@@ -37,7 +37,7 @@ const EmployeeTableView = () => {
   const page = parseInt(searchParams.get('page') || '1');
   const date = searchParams.get('date') || '';
   const router = useRouter();
-  const [deleteModalOpen, setDeleteModalOpen] = useState<object | null>(null);
+  const [deleteModalOpen, setDeleteModalOpen] = useState<Employee | null>(null);
 
   const getEmployeeData = async (
     page: number,

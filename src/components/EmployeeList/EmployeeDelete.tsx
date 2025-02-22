@@ -21,8 +21,8 @@ interface EmployeeResponse {
 }
 
 interface EmployeeDeleteProps {
-  deleteModalOpen: null | object;
-  setDeleteModalOpen: React.Dispatch<React.SetStateAction<null | object>>;
+  deleteModalOpen: Employee | null;
+  setDeleteModalOpen: React.Dispatch<React.SetStateAction<Employee | null>>;
   setProfileInfo: React.Dispatch<React.SetStateAction<EmployeeResponse | null>>;
 }
 
@@ -36,30 +36,46 @@ const EmployeeDelete: React.FC<EmployeeDeleteProps> = ({
   const confirmDelete = async () => {
     setLoading(true);
     try {
-      const { data } = await axios.delete(`/api/`);
-      setLoading(false);
+      const { data } = await axios.delete(
+        `/api/delete-employee?id=${deleteModalOpen?._id}`,
+      );
+      if (data?.status) {
+        setProfileInfo((prev) => {
+          if (!prev) return prev;
+
+          return {
+            ...prev,
+            data: prev.data.filter((emp) => emp._id !== deleteModalOpen?._id),
+          };
+        });
+        toast.success(data?.message);
+        setLoading(false);
+        setDeleteModalOpen(null);
+      } else {
+        toast.error(data?.message);
+        setLoading(false);
+      }
     } catch (err) {
       toast.error((err as Error).message);
       setLoading(false);
     }
   };
 
-  console.log(deleteModalOpen);
   return (
     <div className="bg-white dark:bg-gray-800   w-96">
       <h2 className="text-lg font-bold text-gray-800 dark:text-white">
         Delete Confirmation
       </h2>
       <p className="text-gray-600 dark:text-gray-300 mt-2">
-        Are you sure you want to delete ?
-        {/* <span className="font-semibold">
+        Are you sure you want to delete{' '}
+        <span className="font-semibold">
           {deleteModalOpen ? deleteModalOpen?.name : ''}
-        </span> */}
+        </span>
         ?
       </p>
       <div className="mt-4 flex justify-end space-x-3">
         {loading ? (
-          <span className="flex items-center gap-2">
+          <span className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 flex items-center gap-2">
             <svg
               className="animate-spin h-5 w-5 mr-2 text-white"
               xmlns="http://www.w3.org/2000/svg"
