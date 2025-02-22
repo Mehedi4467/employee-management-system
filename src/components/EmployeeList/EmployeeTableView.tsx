@@ -37,8 +37,7 @@ const EmployeeTableView = () => {
   const page = parseInt(searchParams.get('page') || '1');
   const date = searchParams.get('date') || '';
   const router = useRouter();
-
-  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [deleteModalOpen, setDeleteModalOpen] = useState<object | null>(null);
 
   const getEmployeeData = async (
     page: number,
@@ -156,7 +155,7 @@ const EmployeeTableView = () => {
                             />
                           </button>
                           <button
-                            onClick={() => setDeleteModalOpen(true)}
+                            onClick={() => setDeleteModalOpen(employee)}
                             type="submit"
                           >
                             <img
@@ -196,8 +195,8 @@ const EmployeeTableView = () => {
         </div>
 
         <Modal
-          isOpen={deleteModalOpen}
-          onClose={() => setDeleteModalOpen(false)}
+          isOpen={deleteModalOpen ? true : false}
+          onClose={() => setDeleteModalOpen(null)}
         >
           <EmployeeDelete
             setProfileInfo={setProfileInfo}

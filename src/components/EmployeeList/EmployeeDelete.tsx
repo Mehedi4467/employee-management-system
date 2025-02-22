@@ -21,8 +21,8 @@ interface EmployeeResponse {
 }
 
 interface EmployeeDeleteProps {
-  deleteModalOpen: boolean;
-  setDeleteModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  deleteModalOpen: null | object;
+  setDeleteModalOpen: React.Dispatch<React.SetStateAction<null | object>>;
   setProfileInfo: React.Dispatch<React.SetStateAction<EmployeeResponse | null>>;
 }
 
@@ -43,13 +43,19 @@ const EmployeeDelete: React.FC<EmployeeDeleteProps> = ({
       setLoading(false);
     }
   };
+
+  console.log(deleteModalOpen);
   return (
     <div className="bg-white dark:bg-gray-800   w-96">
       <h2 className="text-lg font-bold text-gray-800 dark:text-white">
         Delete Confirmation
       </h2>
       <p className="text-gray-600 dark:text-gray-300 mt-2">
-        Are you sure you want to delete?
+        Are you sure you want to delete ?
+        {/* <span className="font-semibold">
+          {deleteModalOpen ? deleteModalOpen?.name : ''}
+        </span> */}
+        ?
       </p>
       <div className="mt-4 flex justify-end space-x-3">
         {loading ? (
