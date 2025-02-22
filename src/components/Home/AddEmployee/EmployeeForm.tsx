@@ -1,56 +1,9 @@
-// /* eslint-disable @next/next/no-img-element */
-// "use client";
-// import axios from "axios";
-// import { useState } from "react";
-// import { useForm } from "react-hook-form";
-
-// interface FormData {
-//   name: string;
-//   position: string;
-//   phone: string;
-//   email: string;
-//   address: string;
-//   profilePicture: FileList;
-// }
-
-// const EmployeeForm = () => {
-//   const {
-//     register,
-//     handleSubmit,
-//     formState: { errors },
-//   } = useForm<FormData>();
-//   const [loading, setLoading] = useState<boolean>(false);
-//   const [imagePreview, setImagePreview] = useState<string | null>(null);
-
-//   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-//     const file = event.target.files?.[0];
-//     if (file) {
-//       const reader = new FileReader();
-//       reader.onloadend = () => {
-//         setImagePreview(reader.result as string);
-//       };
-//       reader.readAsDataURL(file);
-//     }
-//   };
-
-//   const onSubmit = async (data: FormData) => {
-//     setLoading(true);
-//     const submitData = { ...data, joningDate: new Date() };
-//     try {
-//       const { data } = await axios.post(`/api/`, submitData);
-//       console.log(data);
-//       setLoading(false);
-//     } catch (err) {
-//       console.error("Submit data error:", (err as Error).message);
-//       setLoading(false);
-//     }
-//   };
-
 /* eslint-disable @next/next/no-img-element */
-"use client";
-import axios from "axios";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
+'use client';
+import axios from 'axios';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 
 interface FormData {
   name: string;
@@ -58,7 +11,7 @@ interface FormData {
   phone: string;
   email: string;
   address: string;
-  profilePicture: string; // FileList থেকে String URL করা হলো
+  profilePicture: string;
 }
 
 const EmployeeForm = () => {
@@ -86,15 +39,15 @@ const EmployeeForm = () => {
   const uploadImageToImgBB = async (file: File): Promise<string | null> => {
     try {
       const formData = new FormData();
-      formData.append("image", file);
+      formData.append('image', file);
 
       const { data } = await axios.post(
         `https://api.imgbb.com/1/upload?key=${process.env.NEXT_PUBLIC_IMAGEBB_API_KEY}`,
-        formData
+        formData,
       );
       return data.data.url;
     } catch (error) {
-      console.error("Image upload error:", error);
+      console.error('Image upload error:', error);
       return null;
     }
   };
@@ -102,11 +55,11 @@ const EmployeeForm = () => {
   const onSubmit = async (data: FormData) => {
     setLoading(true);
 
-    let imageUrl: string | null = "";
+    let imageUrl: string | null = '';
     if (selectedFile) {
       imageUrl = await uploadImageToImgBB(selectedFile);
       if (!imageUrl) {
-        console.error("Image upload failed");
+        console.error('Image upload failed');
         setLoading(false);
         return;
       }
@@ -118,16 +71,19 @@ const EmployeeForm = () => {
       joiningDate: Date.now(),
     };
 
-    console.log(submitData);
-
-    // try {
-    //   const { data } = await axios.post(`/api/`, submitData);
-    //   console.log("Success:", data);
-    // } catch (err) {
-    //   console.error("Submit data error:", (err as Error).message);
-    // } finally {
-    //   setLoading(false);
-    // }
+    try {
+      const { data } = await axios.patch(`/api/submit-employee`, submitData);
+      if (data?.status) {
+        toast.success(data?.message);
+      } else {
+        toast.error(data?.message);
+      }
+    } catch (err) {
+      console.error('Submit data error:', (err as Error).message);
+      toast.error((err as Error).message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -152,7 +108,7 @@ const EmployeeForm = () => {
           </label>
           <input
             type="file"
-            {...register("profilePicture", {})}
+            {...register('profilePicture', {})}
             accept="image/*"
             className="hidden"
             id="fileUpload"
@@ -172,7 +128,7 @@ const EmployeeForm = () => {
             </label>
             <input
               type="text"
-              {...register("name", { required: "Name is required" })}
+              {...register('name', { required: 'Name is required' })}
               className="w-full px-4 py-2 border rounded-md dark:bg-gray-700 dark:text-white"
               placeholder="Enter your name"
             />
@@ -189,7 +145,7 @@ const EmployeeForm = () => {
             </label>
             <input
               type="text"
-              {...register("position", { required: "Position is required" })}
+              {...register('position', { required: 'Position is required' })}
               className="w-full px-4 py-2 border rounded-md dark:bg-gray-700 dark:text-white"
               placeholder="Enter your position"
             />
@@ -210,11 +166,11 @@ const EmployeeForm = () => {
             </label>
             <input
               type="tel"
-              {...register("phone", {
-                required: "Phone number is required",
+              {...register('phone', {
+                required: 'Phone number is required',
                 pattern: {
                   value: /^(?:\+88|88)?01[3-9]\d{8}$/,
-                  message: "Phone must be 11 digits and start with 01",
+                  message: 'Phone must be 11 digits and start with 01',
                 },
               })}
               className="w-full px-4 py-2 border rounded-md dark:bg-gray-700 dark:text-white"
@@ -232,11 +188,11 @@ const EmployeeForm = () => {
             </label>
             <input
               type="email"
-              {...register("email", {
-                required: "Email is required",
+              {...register('email', {
+                required: 'Email is required',
                 pattern: {
                   value: /^\S+@\S+\.\S+$/,
-                  message: "Invalid email address",
+                  message: 'Invalid email address',
                 },
               })}
               className="w-full px-4 py-2 border rounded-md dark:bg-gray-700 dark:text-white"
@@ -253,7 +209,7 @@ const EmployeeForm = () => {
         <div>
           <label className="block font-semibold dark:text-white">Address</label>
           <textarea
-            {...register("address", { required: "Address is required" })}
+            {...register('address', { required: 'Address is required' })}
             className="w-full px-4 py-2 border rounded-md dark:bg-gray-700 dark:text-white"
             placeholder="Enter your address"
             rows={3}
@@ -292,7 +248,7 @@ const EmployeeForm = () => {
               <p>Please wait...</p>
             </span>
           ) : (
-            "Submit"
+            'Submit'
           )}
         </button>
       </form>

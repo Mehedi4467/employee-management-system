@@ -1,5 +1,5 @@
-import React from "react";
-import EmployeeCardView from "../../components/EmployeeList/EmployeeCardView"
+import React from 'react';
+import EmployeeCardView from '../../components/EmployeeList/EmployeeCardView';
 const EmployeeListCardView = () => {
   return (
     <div>

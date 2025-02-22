@@ -1,41 +1,46 @@
-import { NextRequest, NextResponse } from "next/server";
-import { connectToDatabase } from "../../../../lib/mongodb";
-import { ObjectId } from "mongodb"; // Import ObjectId
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { NextRequest, NextResponse } from 'next/server';
+import { connectToDatabase } from '../../../../lib/mongodb';
+import { ObjectId } from 'mongodb';
 
-interface UpdateTransactionData {
-  _id: string;
+interface EmployeeData {
+  _id?: string;
+  name: string;
+  position: string;
+  phone: string;
+  email: string;
+  address: string;
+  profilePicture?: string;
+  joiningDate: number;
 }
 
-export async function POST(req: NextRequest) {
+export async function PATCH(req: NextRequest) {
   try {
-    const newValue: UpdateTransactionData = await req.json();
-
-    if (!newValue?._id || newValue === undefined) {
-      return NextResponse.json({
-        status: false,
-        message: "Missing _id or newValue in the request",
-      });
-    }
-
-    const { _id, ...updateData } = newValue;
-
-    const objectId = new ObjectId(_id);
+    const newValue: EmployeeData = await req.json();
     const { db } = await connectToDatabase();
-    const updateResult = await db
-      .collection("tayyar-acounts")
-      .updateOne({ _id: objectId }, { $set: updateData });
+    const collection = db.collection('ems-data');
+
+    const filter = newValue._id ? { _id: new ObjectId(newValue._id) } : {};
+    const { _id, ...updateData } = newValue;
+    const updateResult = await collection.updateOne(
+      filter,
+      { $set: updateData },
+      { upsert: true },
+    );
+
     return NextResponse.json({
-      status: updateResult.modifiedCount > 0,
+      status: true,
       message:
-        updateResult.modifiedCount > 0
-          ? "Transaction value updated successfully"
-          : "No changes made to the transaction",
+        updateResult.upsertedCount > 0
+          ? 'New employee inserted successfully'
+          : 'Employee data updated successfully',
+      data: updateResult,
     });
   } catch (error) {
-    console.error("Error handling POST request:", error);
+    console.error('Error handling PATCH request:', error);
     return NextResponse.json({
       status: false,
-      message: "Internal Server Error",
+      message: 'Internal Server Error',
     });
   }
 }
