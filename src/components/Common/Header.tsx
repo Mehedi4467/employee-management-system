@@ -81,6 +81,7 @@ const Header = () => {
 
         <div className="relative" ref={dropdownRef}>
           <button
+            type="submit"
             onClick={() => setIsOpen(!isOpen)}
             className="flex items-center space-x-2 bg-white rounded-full shadow-md transition-all hover:shadow-lg"
           >
