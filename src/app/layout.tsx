@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import './globals.css';
 import Header from '@/components/Common/Header';
 import SideBar from '@/components/Common/SideBar';
-import BodyHeader from '@/components/Home/BodyHeader';
 import { Toaster } from 'react-hot-toast';
 
 export const metadata: Metadata = {
@@ -25,12 +24,8 @@ export default function RootLayout({
           <aside className="w-64 bg-white dark:bg-gray-800 p-4 border-r h-screen fixed shadow-md">
             <SideBar />
           </aside>
-          <main className="flex-1 p-6 dark:bg-[#111827] overflow-auto ml-64">
-            <BodyHeader />
-            <section className="p-4 shadow dark:bg-gray-800 bg-white rounded-lg">
-              {children}
-            </section>
-          </main>
+
+          <div className="w-full">{children}</div>
         </div>
         <Toaster />
       </body>

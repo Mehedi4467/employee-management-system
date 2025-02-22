@@ -11,7 +11,6 @@ export async function GET(req: NextRequest) {
     const { db } = await connectToDatabase();
     const collection = db.collection('ems-data');
 
-    // Search Query (By Name, Phone, or Email)
     const searchQuery = search
       ? {
           $or: [
@@ -22,18 +21,22 @@ export async function GET(req: NextRequest) {
         }
       : {};
 
-    // Filter by Joining Date (if provided)
-    const dateFilter = joiningDate
-      ? { joiningDate: { $gte: new Date(joiningDate) } }
-      : {};
+    let dateFilter = {};
+    if (joiningDate) {
+      const startOfDay = new Date(joiningDate).setHours(0, 0, 0, 0);
+      const endOfDay = new Date(joiningDate).setHours(23, 59, 59, 999);
 
-    // Final Query
+      dateFilter = {
+        joiningDate: {
+          $gte: startOfDay,
+          $lte: endOfDay,
+        },
+      };
+    }
+
     const query = { ...searchQuery, ...dateFilter };
-
-    // Get Total Count
     const totalRecords = await collection.countDocuments(query);
 
-    // Fetch Data with Pagination
     const employees = await collection
       .find(query)
       .skip((page - 1) * limit)

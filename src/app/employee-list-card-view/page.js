@@ -1,16 +1,12 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import EmployeeCardView from '../../components/EmployeeList/EmployeeCardView';
 const EmployeeListCardView = () => {
   return (
-    <div>
-      <div className="flex justify-between items-center mb-3">
-        <h1 className="text-xl font-semibold">Company Employees</h1>
-      </div>
-
-      <div className="bg-white dark:bg-gray-800 p-2 rounded-lg">
+    <main className="flex-1 p-6 dark:bg-[#111827] overflow-auto ml-64">
+      <Suspense>
         <EmployeeCardView />
-      </div>
-    </div>
+      </Suspense>
+    </main>
   );
 };
 

@@ -1,15 +1,35 @@
-"use client";
-import React, { useState } from "react";
-import Modal from "../Common/Modal";
-import EmployeeForm from "./AddEmployee/EmployeeForm";
+'use client';
+import React, { useState } from 'react';
+import Modal from '../Common/Modal';
+import EmployeeForm from './AddEmployee/EmployeeForm';
+interface Employee {
+  _id: string;
+  name: string;
+  position: string;
+  phone: string;
+  email: string;
+  address: string;
+  profilePicture?: string;
+}
 
-const BodyHeader = () => {
-  const [isModalOpen, setModalOpen] = useState(false);
+interface EmployeeResponse {
+  status: boolean;
+  data: Employee[];
+  totalPages: number;
+  currentPage: number;
+}
+interface BodyHeaderProps {
+  setProfileInfo: React.Dispatch<React.SetStateAction<EmployeeResponse | null>>;
+}
+
+const BodyHeader: React.FC<BodyHeaderProps> = ({ setProfileInfo }) => {
+  const [isModalOpen, setModalOpen] = useState<boolean>(false);
   return (
     <>
       <header className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-semibold">Employees</h1>
         <button
+          type="submit"
           onClick={() => setModalOpen(true)}
           className="bg-[#399bce] text-white px-4 py-2 rounded"
         >
@@ -18,7 +38,10 @@ const BodyHeader = () => {
       </header>
 
       <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
-        <EmployeeForm />
+        <EmployeeForm
+          setProfileInfo={setProfileInfo}
+          setModalOpen={setModalOpen}
+        />
       </Modal>
     </>
   );

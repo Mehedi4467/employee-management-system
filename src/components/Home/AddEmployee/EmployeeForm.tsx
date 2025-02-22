@@ -14,7 +14,31 @@ interface FormData {
   profilePicture: string;
 }
 
-const EmployeeForm = () => {
+interface Employee {
+  _id: string;
+  name: string;
+  position: string;
+  phone: string;
+  email: string;
+  address: string;
+  profilePicture?: string;
+}
+
+interface EmployeeResponse {
+  status: boolean;
+  data: Employee[];
+  totalPages: number;
+  currentPage: number;
+}
+interface BodyHeaderProps {
+  setProfileInfo: React.Dispatch<React.SetStateAction<EmployeeResponse | null>>;
+  setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const EmployeeForm: React.FC<BodyHeaderProps> = ({
+  setProfileInfo,
+  setModalOpen,
+}) => {
   const {
     register,
     handleSubmit,
@@ -74,6 +98,17 @@ const EmployeeForm = () => {
     try {
       const { data } = await axios.patch(`/api/submit-employee`, submitData);
       if (data?.status) {
+        setProfileInfo((prev) => {
+          const updatedData = prev ? [submitData, ...prev.data] : [submitData];
+
+          return {
+            data: updatedData,
+            status: true,
+            totalPages: prev?.totalPages ?? prev?.totalPages ?? 1,
+            currentPage: prev?.currentPage ?? prev?.currentPage ?? 1,
+          } as EmployeeResponse;
+        });
+        setModalOpen(false);
         toast.success(data?.message);
       } else {
         toast.error(data?.message);
@@ -114,11 +149,6 @@ const EmployeeForm = () => {
             id="fileUpload"
             onChange={handleImageChange}
           />
-          {/* {errors.profilePicture && (
-            <p className="text-red-500 text-sm">
-              {errors.profilePicture.message}
-            </p>
-          )} */}
         </div>
 
         <div className="flex items-center gap-2">
