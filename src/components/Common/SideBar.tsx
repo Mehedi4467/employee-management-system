@@ -17,7 +17,7 @@ import {
   FaBook,
 } from 'react-icons/fa';
 interface SideBarProps {
-  setIsOpen: (isOpen: boolean) => void;
+  setIsOpen?: (isOpen: boolean) => void;
 }
 const SideBar: React.FC<SideBarProps> = ({ setIsOpen }) => {
   const router = useRouter();
@@ -44,7 +44,7 @@ const SideBar: React.FC<SideBarProps> = ({ setIsOpen }) => {
             <li
               onClick={() => {
                 router.push(`/employee-list-card-view`);
-                setIsOpen(false);
+                setIsOpen?.(false);
               }}
               className={`flex items-center space-x-2 p-2 rounded cursor-pointer 
                 ${
@@ -59,7 +59,7 @@ const SideBar: React.FC<SideBarProps> = ({ setIsOpen }) => {
             <li
               onClick={() => {
                 router.push(`/employee-list-table-view`);
-                setIsOpen(false);
+                setIsOpen?.(false);
               }}
               className={`flex items-center space-x-2 p-2 rounded cursor-pointer 
                 ${

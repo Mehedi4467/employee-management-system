@@ -52,14 +52,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-gray-200 dark:bg-gray-800 dark:text-white">
-        {/* Header */}
         <div className="sticky z-50 top-0">
           <Header />
         </div>
-
         <div className="flex min-h-screen overflow-hidden">
           <MobileSidebar />
-
           <aside className="hidden md:block md:w-64 bg-white dark:bg-gray-800 p-4 border-r h-screen fixed shadow-md">
             <SideBar />
           </aside>

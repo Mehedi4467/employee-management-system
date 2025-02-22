@@ -21,6 +21,7 @@ interface Employee {
   phone: string;
   email: string;
   address: string;
+  joiningDate: string;
   profilePicture?: string;
 }
 

@@ -19,13 +19,13 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, onFilter }) => {
 
   return (
     <div className="flex flex-col md:flex-row items-center  justify-between gap-3 bg-white dark:bg-gray-800  ">
-      <div className="relative w-full md:w-2/3 flex">
+      <div className="relative w-full  flex">
         <input
           type="text"
-          placeholder="Search by name, email, or phone..."
+          placeholder="Search by name, phone or email"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full pl-10 pr-32 py-2 border rounded-lg dark:bg-gray-700 outline-none dark:text-white dark:border-gray-600 "
+          className="w-full pl-10 truncate pr-32 py-2 border rounded-lg dark:bg-gray-700 outline-none dark:text-white dark:border-gray-600 "
         />
 
         {searchQuery && (
