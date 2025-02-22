@@ -58,7 +58,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, onFilter }) => {
             className="absolute inset-y-0 left-4 flex items-center pointer-events-none"
           >
             <FiCalendar className="text-gray-500 dark:text-gray-300" />
-            <p className="text-gray-400 md:hidden  ml-2">Select Date</p>
+            {/* <p className="text-gray-400 md:hidden  ml-2">Select Date</p> */}
           </motion.div>
 
           <button
