@@ -1,10 +1,10 @@
-'use client';
-import Image from 'next/image';
-import React, { useEffect, useRef, useState } from 'react';
-import ThemeToggle from '../ThemeToggle';
-import { motion, AnimatePresence } from 'framer-motion';
-import { FaBars, FaCog, FaSignOutAlt, FaUserCircle } from 'react-icons/fa';
-import { admin } from '../../../lib/admin';
+"use client";
+import Image from "next/image";
+import React, { useEffect, useRef, useState } from "react";
+import ThemeToggle from "../ThemeToggle";
+import { motion, AnimatePresence } from "framer-motion";
+import { FaBars, FaCog, FaSignOutAlt, FaUserCircle } from "react-icons/fa";
+import { admin } from "../../../lib/admin";
 
 const Header = () => {
   const [time, setTime] = useState<string | null>(null);
@@ -14,7 +14,7 @@ const Header = () => {
 
   useEffect(() => {
     const updateTime = () =>
-      setTime(new Date().toLocaleTimeString('en-GB', { hour12: true }));
+      setTime(new Date().toLocaleTimeString("en-GB", { hour12: true }));
 
     updateTime();
     const interval = setInterval(updateTime, 1000);
@@ -31,20 +31,19 @@ const Header = () => {
         setIsOpen(false);
       }
     };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   return (
     <nav className="flex items-center px-6 justify-between dark:bg-[#1f2937] dark:shadow-lg bg-white relative">
       <div className="flex items-center">
         <button
-          className="text-2xl mr-4 text-[#3899db] lg:hidden"
+          className="text-2xl mr-4 text-[#3899db] md:hidden"
           onClick={() => setMenuOpen(!menuOpen)}
         >
           <FaBars />
         </button>
-
         <Image
           src="/logo.png"
           alt="User Avatar"
@@ -86,7 +85,7 @@ const Header = () => {
             className="flex items-center space-x-2 bg-white rounded-full shadow-md transition-all hover:shadow-lg"
           >
             <Image
-              src={admin?.image || '/icon/user.png'}
+              src={admin?.image || "/icon/user.png"}
               alt="Profile"
               width={20}
               height={20}

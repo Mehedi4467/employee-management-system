@@ -1,6 +1,6 @@
-import axios from 'axios';
-import React, { useState } from 'react';
-import toast from 'react-hot-toast';
+import axios from "axios";
+import React, { useState } from "react";
+import toast from "react-hot-toast";
 
 interface Employee {
   _id: string;
@@ -37,12 +37,11 @@ const EmployeeDelete: React.FC<EmployeeDeleteProps> = ({
     setLoading(true);
     try {
       const { data } = await axios.delete(
-        `/api/delete-employee?id=${deleteModalOpen?._id}`,
+        `/api/delete-employee?id=${deleteModalOpen?._id}`
       );
       if (data?.status) {
         setProfileInfo((prev) => {
           if (!prev) return prev;
-
           return {
             ...prev,
             data: prev.data.filter((emp) => emp._id !== deleteModalOpen?._id),
@@ -62,14 +61,14 @@ const EmployeeDelete: React.FC<EmployeeDeleteProps> = ({
   };
 
   return (
-    <div className="bg-white dark:bg-gray-800   w-96">
+    <div className="bg-white dark:bg-gray-800">
       <h2 className="text-lg font-bold text-gray-800 dark:text-white">
         Delete Confirmation
       </h2>
       <p className="text-gray-600 dark:text-gray-300 mt-2">
-        Are you sure you want to delete{' '}
+        Are you sure you want to delete{" "}
         <span className="font-semibold">
-          {deleteModalOpen ? deleteModalOpen?.name : ''}
+          {deleteModalOpen ? deleteModalOpen?.name : ""}
         </span>
         ?
       </p>

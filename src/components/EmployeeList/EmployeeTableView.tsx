@@ -1,15 +1,16 @@
-'use client';
+"use client";
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react';
-import Pagination from '../Common/Pagination';
-import EmptyPage from '../Common/EmptyPage';
-import { useRouter, useSearchParams } from 'next/navigation';
-import axios from 'axios';
-import BodyHeader from '../Home/BodyHeader';
-import SearchBar from '../Common/SearchBar';
-import Spinner from '../Common/Spinner';
-import Modal from '../Common/Modal';
-import EmployeeDelete from './EmployeeDelete';
+import React, { useEffect, useState } from "react";
+import Pagination from "../Common/Pagination";
+import EmptyPage from "../Common/EmptyPage";
+import { useRouter, useSearchParams } from "next/navigation";
+import axios from "axios";
+import BodyHeader from "../Home/BodyHeader";
+import SearchBar from "../Common/SearchBar";
+import Spinner from "../Common/Spinner";
+import Modal from "../Common/Modal";
+import EmployeeDelete from "./EmployeeDelete";
+import UpdateEmployeeForm from "../Home/AddEmployee/UpdateEmployeeForm";
 
 interface Employee {
   _id: string;
@@ -33,21 +34,22 @@ const EmployeeTableView = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [profileInfo, setProfileInfo] = useState<EmployeeResponse | null>(null);
   const searchParams = useSearchParams();
-  const search = searchParams.get('search') || '';
-  const page = parseInt(searchParams.get('page') || '1');
-  const date = searchParams.get('date') || '';
+  const search = searchParams.get("search") || "";
+  const page = parseInt(searchParams.get("page") || "1");
+  const date = searchParams.get("date") || "";
   const router = useRouter();
   const [deleteModalOpen, setDeleteModalOpen] = useState<Employee | null>(null);
+  const [editModalOpen, setEditModalOpen] = useState<Employee | null>(null);
 
   const getEmployeeData = async (
     page: number,
     search: string,
-    date: string,
+    date: string
   ) => {
     setLoading(true);
     try {
       const { data } = await axios.get(
-        `/api/get-employee?page=${page}&search=${search}&joiningDate=${date}`,
+        `/api/get-employee?page=${page}&search=${search}&joiningDate=${date}`
       );
 
       if (data?.status) {
@@ -74,7 +76,6 @@ const EmployeeTableView = () => {
   const onFilter = (value: string) => {
     router.push(`/employee-list-table-view?page=1&search=&date=${value}`);
   };
-  console.log(profileInfo);
   return (
     <>
       <BodyHeader setProfileInfo={setProfileInfo} />
@@ -116,8 +117,8 @@ const EmployeeTableView = () => {
                       <td className="p-2">{index + 1}</td>
                       <td className="p-2 flex items-center space-x-2">
                         <img
-                          src={employee.profilePicture || '/icon/user.png'}
-                          alt={employee.name}
+                          src={employee.profilePicture || "/icon/user.png"}
+                          alt={employee.name || "N/A"}
                           width={40}
                           height={40}
                           className="rounded-full"
@@ -134,11 +135,14 @@ const EmployeeTableView = () => {
                       <td className="p-2 whitespace-nowrap">
                         {employee.joiningDate
                           ? new Date(employee.joiningDate).toDateString()
-                          : 'N/A'}
+                          : "N/A"}
                       </td>
                       <td className="p-2">
                         <div className="flex items-center gap-3">
-                          <button type="submit">
+                          <button
+                            onClick={() => setEditModalOpen(employee)}
+                            type="submit"
+                          >
                             <img
                               src="/icon/edit-black.png"
                               width={20}
@@ -183,8 +187,6 @@ const EmployeeTableView = () => {
           ) : (
             <EmptyPage />
           )}
-
-          {/* Pagination */}
           <div className="mt-6">
             <Pagination
               currentPage={page || 1}
@@ -193,7 +195,6 @@ const EmployeeTableView = () => {
             />
           </div>
         </div>
-
         <Modal
           isOpen={deleteModalOpen ? true : false}
           onClose={() => setDeleteModalOpen(null)}
@@ -202,6 +203,16 @@ const EmployeeTableView = () => {
             setProfileInfo={setProfileInfo}
             setDeleteModalOpen={setDeleteModalOpen}
             deleteModalOpen={deleteModalOpen}
+          />
+        </Modal>
+        <Modal
+          isOpen={editModalOpen ? true : false}
+          onClose={() => setEditModalOpen(null)}
+        >
+          <UpdateEmployeeForm
+            setProfileInfo={setProfileInfo}
+            setModalOpen={setEditModalOpen}
+            editModalOpen={editModalOpen}
           />
         </Modal>
       </section>
